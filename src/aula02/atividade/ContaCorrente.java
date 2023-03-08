@@ -14,7 +14,7 @@ public class ContaCorrente {
 
     public void sacar(double valor) {
         if (this.saldo < valor) {
-            System.out.println("Saldo insuficiente.");
+            System.out.println("Saldo insuficiente. Peça um empréstimo!");
         } else {
             this.saldo -= valor;
             System.out.println("Saque de R$ " + valor + " realizado. Saldo atual: R$ " + this.saldo);
