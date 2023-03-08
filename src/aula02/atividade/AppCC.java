@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 // Declaração da classe principal AppCC
 public class AppCC {
     // Declaração da classe principal AppCC
