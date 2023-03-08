@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 // Declaração da classe principal AppCC
 public class AppCC {
-    // Declaração da classe principal AppCC
+    // Executando/Iniciando o código
     public static void main(String[] args) {
         // Cria uma nova instância da classe Scanner para receber entradas do usuário
         Scanner scanner = new Scanner(System.in);
