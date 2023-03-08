@@ -24,7 +24,7 @@ public class AppCC {
         System.out.print("Informe o valor a ser sacado: ");
         // Lê o valor digitado pelo usuário e armazena na variável 'valorSaque'
         double valorSaque = scanner.nextDouble();
-        // Lê o valor digitado pelo usuário e armazena na variável 'valorSaque'
+        // Chama o método sacar da classe ContaCorrente para realizar o saque na conta
         conta.sacar(valorSaque);
     }
 }
