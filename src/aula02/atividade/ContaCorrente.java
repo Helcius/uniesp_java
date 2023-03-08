@@ -9,8 +9,8 @@ public class ContaCorrente {
 
     public void depositar(double valor) {
         this.saldo += valor;
-        System.out.println("Depósito de R$ " + valor + " realizado. Saldo atual: R$ " + this.saldo);
-    }
+        System.out.println("Depósito de R$ " + valor + " realizado. Saldo atual: R" + this.saldo);
+    }$ 
 
     public void sacar(double valor) {
         if (this.saldo < valor) {
