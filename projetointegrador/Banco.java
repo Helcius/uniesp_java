@@ -4,12 +4,11 @@ public class Banco {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Cria um cliente com CPF, senha e saldos iniciais
-        Cliente cliente = new Cliente("123.456.789-00", "1234", 1000.0, 500.0);
+        // Cria um cliente com CPF, senha e saldo iniciais
+        Cliente cliente = new Cliente("15101400424", "1234", 1000.0);
 
-        // Cria uma conta corrente e uma conta poupança associadas ao cliente
+        // Cria uma conta corrente associada ao cliente
         ContaCorrente contaCorrente = new ContaCorrente(cliente);
-        ContaPoupanca contaPoupanca = new ContaPoupanca(cliente);
 
         // Realiza o login do cliente
         boolean loginEfetuado = false;
@@ -27,59 +26,44 @@ public class Banco {
             }
         } while (!loginEfetuado);
 
-        // Permite que o usuário escolha entre a conta corrente e a conta poupança
-        System.out.print("Digite 1 para acessar a conta corrente ou 2 para acessar a conta poupança: ");
-        int op = scanner.nextInt();
-        if (op == 1) {
-            // Menu da conta corrente
-            boolean sair = false;
-            do {
-                System.out.println("\n===============================");
-                System.out.println("Conta corrente");
-                System.out.println("Saldo: R$ " + contaCorrente.consultarSaldo());
-                System.out.println("1. Consultar extrato");
-                System.out.println("2. Sacar");
-                System.out.println("3. Depositar");
-                System.out.println("4. Transferir para conta poupança");
-                System.out.println("5. Sair");
-                System.out.print("Escolha uma opção: ");
+        // Realiza um saque da conta corrente
+        boolean saqueEfetuado = false;
+        while (!saqueEfetuado) {
+            System.out.print("Digite o valor do saque: ");
+            double valor = scanner.nextDouble();
+            if (contaCorrente.sacar(valor)) {
+                System.out.println("Saque efetuado com sucesso. Novo saldo: " + contaCorrente.consultarSaldo());
+                saqueEfetuado = true;
+            } else {
+                System.out.println("Saldo insuficiente para o saque. Digite um valor válido.");
+            }
+        }
 
-                int opcao = scanner.nextInt();
-                switch (opcao) {
-                    case 1:
-                        System.out.println("Extrato: ");
-                        contaCorrente.imprimirExtrato();
-                        break;
-                    case 2:
-                        System.out.print("Digite o valor a ser sacado: ");
-                        double valor = scanner.nextDouble();
-                        boolean saqueEfetuado = contaCorrente.sacar(valor);
-                        if (saqueEfetuado) {
-                            System.out.println("Saque efetuado com sucesso.");
-                        } else {
-                            System.out.println("Saldo insuficiente.");
-                        }
-                        break;
-                    case 3:
-                        System.out.print("Digite o valor a ser depositado: ");
-                        valor = scanner.nextDouble();
-                        contaCorrente.depositar(valor);
-                        System.out.println("Depósito efetuado com sucesso.");
-                        break;
-                    case 4:
-                        System.out.print("Digite o valor a ser transferido para a conta poupança: ");
-                        valor = scanner.nextDouble();
-                        boolean transferenciaEfetuada = contaCorrente.transferir(valor, contaPoupanca);
-                        if (transferenciaEfetuada) {
-                            System.out.println("Transferência efetuada com sucesso.");
-                        } else {
-                            System.out.println("Saldo insuficiente.");
-                        }
-                        break;
-                    case 5:
-                        sair = true;
-                        break;
-                    default:
-                        System.out.println("Opção inválida.");
-                        break;
-                }
+        // Realiza um depósito na conta corrente
+        System.out.print("Digite o valor do depósito: ");
+        double valorDeposito = scanner.nextDouble();
+        contaCorrente.depositar(valorDeposito);
+        System.out.println("Depósito efetuado com sucesso. Novo saldo: " + contaCorrente.consultarSaldo());
+
+        // Realiza uma transferência da conta corrente para a conta poupança
+        System.out.print("Digite o valor da transferência da conta corrente para a conta poupança: ");
+        double valorTransferencia = scanner.nextDouble();
+        ContaPoupanca contaPoupanca = new ContaPoupanca(cliente);
+        while (!contaCorrente.transferir(valorTransferencia, contaPoupanca)) {
+            System.out.println("Saldo insuficiente na conta corrente para a transferência.");
+            System.out.print("Digite um valor válido: ");
+            valorTransferencia = scanner.nextDouble();
+        }
+        System.out.println("Transferência efetuada com sucesso. Novo saldo na conta corrente: " + contaCorrente.consultarSaldo() + ". Novo saldo na poupança: " + contaPoupanca.getSaldo());
+
+        // Realiza um saque na conta poupança
+            System.out.print("Digite o valor do saque na conta poupança: ");
+            double valorSaquePoupanca = scanner.nextDouble();
+            if (contaPoupanca.sacar(valorSaquePoupanca)) {
+                System.out.println("Saque efetuado com sucesso. Novo saldo na poupança: " + contaPoupanca.getSaldo());
+            } else {
+                System.out.println("Saldo insuficiente na poupança para o saque.");
+            }
+        }
+
+    }
