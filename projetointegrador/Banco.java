@@ -46,7 +46,6 @@ public class Banco {
         System.out.print("Digite o valor do depósito: ");
         double valorDeposito = scanner.nextDouble();
         contaCorrente.depositar(valorDeposito);
-        System.out.println("Depósito efetuado com sucesso. Novo saldo: " + contaCorrente.consultarSaldo());
 
         // Realiza uma transferência da conta corrente para a conta poupança
         System.out.print("Digite o valor da transferência da conta corrente para a conta poupança: ");
