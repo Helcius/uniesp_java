@@ -7,6 +7,9 @@ public class Banco {
         // Cria um cliente com CPF, senha e saldo iniciais
         Cliente cliente = new Cliente("15101400424", "1234", 1000.0);
 
+        // Realiza um investimento com o saldo do cliente
+        cliente.investir(100, 12);
+
         // Cria uma conta corrente associada ao cliente
         ContaCorrente contaCorrente = new ContaCorrente(cliente);
 
@@ -57,13 +60,13 @@ public class Banco {
         System.out.println("Transferência efetuada com sucesso. Novo saldo na conta corrente: " + contaCorrente.consultarSaldo() + ". Novo saldo na poupança: " + contaPoupanca.getSaldo());
 
         // Realiza um saque na conta poupança
-            System.out.print("Digite o valor do saque na conta poupança: ");
-            double valorSaquePoupanca = scanner.nextDouble();
-            if (contaPoupanca.sacar(valorSaquePoupanca)) {
-                System.out.println("Saque efetuado com sucesso. Novo saldo na poupança: " + contaPoupanca.getSaldo());
-            } else {
-                System.out.println("Saldo insuficiente na poupança para o saque.");
-            }
+        System.out.print("Digite o valor do saque na conta poupança: ");
+        double valorSaquePoupanca = scanner.nextDouble();
+        if (contaPoupanca.sacar(valorSaquePoupanca)) {
+            System.out.println("Saque efetuado com sucesso. Novo saldo na poupança: " + contaPoupanca.getSaldo());
+        } else {
+            System.out.println("Saldo insuficiente na poupança para o saque.");
         }
-
     }
+
+}
